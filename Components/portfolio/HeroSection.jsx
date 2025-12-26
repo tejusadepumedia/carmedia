@@ -1,0 +1,69 @@
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+
+export default function HeroSection() {
+  const scrollToGallery = () => {
+    document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <section className="relative h-screen w-full overflow-hidden bg-[#0a0a0a]">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/b0d4a85cd_DSC05905.jpg"
+          alt="Featured car"
+          className="w-full h-full object-cover opacity-60" />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#0a0a0a]" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="text-center">
+
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.3em" }}
+            animate={{ opacity: 1, letterSpacing: "0.5em" }}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="text-[#d4a853] text-xs md:text-sm uppercase tracking-[0.5em] mb-6">
+
+            Automotive Photography
+          </motion.p>
+          
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tight">
+            <span className="block">tejus.adepu</span>
+            <span className="block mt-2 font-extralight italic text-white/90">photography
+            </span>
+          </h1>
+
+          <motion.div initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#d4a853] to-transparent mx-auto mt-10" />
+
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.button
+          onClick={scrollToGallery}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/50 hover:text-[#d4a853] transition-colors duration-300">
+
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
+
+            <ChevronDown className="w-8 h-8" />
+          </motion.div>
+        </motion.button>
+      </div>
+    </section>);
+
+}
