@@ -5,67 +5,67 @@ import { X } from "lucide-react";
 const photos = [
   {
     id: 1,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/a4ac83e30_DSC05671.jpg",
+    src: "/components/portfolio/photos/DSC05345.png",
     alt: "Nissan GT-R by Lake",
     span: "col-span-2 row-span-2"
   },
   {
     id: 2,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/0ee2c1737_DSC05819.jpg",
+    src: "/components/portfolio/photos/DSC05539.png",
     alt: "White GT-R Sunset",
     span: "col-span-1 row-span-1"
   },
   {
     id: 3,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/b0d4a85cd_DSC05905.jpg",
+    src: "/components/portfolio/photos/DSC05557.png",
     alt: "Lamborghini Revuelto Front",
     span: "col-span-1 row-span-2"
   },
   {
     id: 4,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/e7115d20d_DSC05913.jpg",
+    src: "/components/portfolio/photos/DSC05573.png",
     alt: "Lamborghini Revuelto Side",
     span: "col-span-1 row-span-1"
   },
   {
     id: 5,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/7609c4132_DSC05920.jpg",
+    src: "/components/portfolio/photos/DSC05581.png",
     alt: "Lamborghini Doors Up",
     span: "col-span-2 row-span-1"
   },
   {
     id: 6,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/80a2040e8_DSC05922.jpg",
+    src: "/components/portfolio/photos/DSC05638.png",
     alt: "Lamborghini Wide Shot",
     span: "col-span-1 row-span-1"
   },
   {
     id: 7,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/b2943be12_DSC05946.jpg",
+    src: "/components/portfolio/photos/DSC05671.png",
     alt: "Lamborghini Badge Detail",
     span: "col-span-1 row-span-1"
   },
   {
     id: 8,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/b8d7ed469_DSC05949.jpg",
+    src: "/components/portfolio/photos/DSC05765.png",
     alt: "Lamborghini Headlight",
     span: "col-span-1 row-span-1"
   },
   {
     id: 9,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/730467b78_DSC05953.jpg",
+    src: "/components/portfolio/photos/DSC05840.png",
     alt: "Lamborghini Wheel Detail",
     span: "col-span-1 row-span-1"
   },
   {
     id: 10,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/a589ec1d6_DSC05962.jpg",
+    src: "/components/portfolio/photos/DSC05949.png",
     alt: "Lamborghini Interior",
     span: "col-span-2 row-span-1"
   },
   {
     id: 11,
-    src: "/components/portfolio/photos/DSC05978.jpg",
+    src: "/components/portfolio/photos/DSC05978.png",
     alt: "Lamborghini Hood",
     span: "col-span-2 row-span-1",
     style: { width: "50%", height: "auto" }
