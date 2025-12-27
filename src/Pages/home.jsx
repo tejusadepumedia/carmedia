@@ -1,9 +1,9 @@
-import Navigation from "/components/portfolio/Navigation";
-import HeroSection from "/components/portfolio/HeroSection";
-import GallerySection from "/components/portfolio/GallerySection";
-import AboutSection from "/components/portfolio/AboutSection";
-import SocialLinks from "/components/portfolio/SocialLinks";
-import Footer from "/components/portfolio/Footer";
+import Navigation from "/src/components/portfolio/Navigation";
+import HeroSection from "/src/components/portfolio/HeroSection";
+import GallerySection from "/src/components/portfolio/GallerySection";
+import AboutSection from "/src/components/portfolio/AboutSection";
+import SocialLinks from "/src/components/portfolio/SocialLinks";
+import Footer from "/src/components/portfolio/Footer";
 
 export default function Home() {
   return (
