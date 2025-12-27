@@ -65,9 +65,10 @@ const photos = [
   },
   {
     id: 11,
-    src: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/05e17073d_DSC05978.jpg",
+    src: "/components/portfolio/photos/DSC05978.jpg",
     alt: "Lamborghini Hood",
-    span: "col-span-2 row-span-1"
+    span: "col-span-2 row-span-1",
+    style: { width: "50%", height: "auto" }
   }
 ];
 
