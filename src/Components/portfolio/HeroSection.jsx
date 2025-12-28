@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import heroImage from "./photos/DSC05905.webp";
+
 
 export default function HeroSection() {
   const scrollToGallery = () => {
@@ -11,7 +13,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="src/components/portfolio/photos/DSC05905.webp"
+          src= {heroImage}
           alt="Featured car"
           className="w-full h-full object-cover opacity-60" />
 
