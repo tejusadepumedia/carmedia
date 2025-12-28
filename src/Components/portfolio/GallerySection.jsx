@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
 // Automatically import all PNG and JPG images from the folder
-const images = import.meta.glob("./photos/*.{png,jpg,jpeg}", { eager: true });
+const images = import.meta.glob("./photos/*.webp", { eager: true });
 
 export default function GallerySection() {
   const [photos, setPhotos] = useState([]);

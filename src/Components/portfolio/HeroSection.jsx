@@ -11,7 +11,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="/components/portfolio/photos/DSC05905.png"
+          src="src/components/portfolio/photos/DSC05905.png"
           alt="Featured car"
           className="w-full h-full object-cover opacity-60" />
 
