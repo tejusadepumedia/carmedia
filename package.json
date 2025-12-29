@@ -9,13 +9,15 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
-    "deploy:all": "git pull origin main && npm install && npm run deploy"
+    "deploy:all": "git pull origin main && npm install && npm run deploy",
+    "compress-gallery": "node scripts/compress-gallery.js"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

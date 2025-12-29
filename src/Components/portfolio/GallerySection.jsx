@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-// Import ALL images recursively (folders = slideshows)
-const imageModules = import.meta.glob("./photos/**/**/*.webp", {
+// Import all compressed images
+const imageModules = import.meta.glob("/src/photos_compressed/**/**/*.webp", {
   eager: true,
 });
 
@@ -12,33 +12,53 @@ export default function GallerySection() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const grouped = {};
+useEffect(() => {
+  const grouped = {};
 
-    Object.entries(imageModules).forEach(([path, module]) => {
-      // ./photos/supra/1.webp → "supra"
-      const folder = path.split("/")[2];
+  Object.entries(imageModules).forEach(([path, module]) => {
+    // path example: "../../photos_compressed/supra/1.webp"
+    // split and take the folder name
+    const parts = path.split("/");
+    const folder = parts[parts.length - 2]; // second-to-last = folder
 
-      if (!grouped[folder]) {
-        grouped[folder] = [];
-      }
+    if (!grouped[folder]) grouped[folder] = [];
+    grouped[folder].push(module.default);
+  });
 
-      grouped[folder].push(module.default);
-    });
+  // Sort images in each folder
+  Object.keys(grouped).forEach(folder => {
+    grouped[folder].sort(); 
+  });
 
-    const photoArray = Object.entries(grouped).map(
-      ([folderName, images], index) => ({
-        id: index + 1,
-        title: folderName,
-        cover: images[0],  // first image is tile cover
-        slides: images,    // all images = slideshow
-        alt: folderName,
-        span: "col-span-1 row-span-1",
-      })
+  const photoArray = Object.entries(grouped).map(([folderName, images], index) => ({
+    id: index + 1,
+    title: folderName,
+    cover: images[0],   // first image = tile cover
+    slides: images,     // all images in this folder = slideshow
+    alt: folderName,
+    span: "col-span-1 row-span-1",
+  }));
+
+  setPhotos(photoArray);
+}, []);
+
+
+  const openGallery = (photo) => {
+    setSelectedPhoto(photo);
+    setCurrentIndex(0);
+  };
+
+  const closeGallery = () => setSelectedPhoto(null);
+
+  const next = () => {
+    setCurrentIndex((i) => (i + 1) % selectedPhoto.slides.length);
+  };
+
+  const prev = () => {
+    setCurrentIndex((i) =>
+      (i - 1 + selectedPhoto.slides.length) % selectedPhoto.slides.length
     );
-
-    setPhotos(photoArray);
-  }, []);
+  };
 
   return (
     <section id="gallery" className="bg-[#0a0a0a] py-24 md:py-32 px-4 md:px-8">
@@ -55,7 +75,7 @@ export default function GallerySection() {
             Portfolio
           </p>
           <h2 className="text-3xl md:text-5xl font-light text-white">
-            Selected Works (select each for full slideshow)
+            Selected Works
           </h2>
         </motion.div>
 
@@ -69,10 +89,7 @@ export default function GallerySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={`relative overflow-hidden group cursor-pointer ${photo.span}`}
-              onClick={() => {
-                setSelectedPhoto(photo);
-                setCurrentIndex(0);
-              }}
+              onClick={() => openGallery(photo)}
             >
               <img
                 src={photo.cover}
@@ -99,11 +116,11 @@ export default function GallerySection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-            onClick={() => setSelectedPhoto(null)}
+            onClick={closeGallery}
           >
             {/* Close */}
             <button
-              onClick={() => setSelectedPhoto(null)}
+              onClick={(e) => { e.stopPropagation(); closeGallery(); }}
               className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
             >
               <X className="w-8 h-8" />
@@ -113,9 +130,7 @@ export default function GallerySection() {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentIndex((i) =>
-                  i === 0 ? selectedPhoto.slides.length - 1 : i - 1
-                );
+                prev();
               }}
               className="absolute left-6 text-white text-4xl"
             >
@@ -137,9 +152,7 @@ export default function GallerySection() {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentIndex((i) =>
-                  i === selectedPhoto.slides.length - 1 ? 0 : i + 1
-                );
+                next();
               }}
               className="absolute right-6 text-white text-4xl"
             >
