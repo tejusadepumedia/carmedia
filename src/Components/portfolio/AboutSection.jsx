@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import btsimage from "./photos/DSC05840.webp";
+
 
 export default function AboutSection() {
   return (
@@ -15,7 +17,7 @@ export default function AboutSection() {
           >
             <div className="aspect-[4/5] overflow-hidden">
               <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6930a82360a27d8dfd0bea37/e7115d20d_DSC05913.jpg"
+                src={btsimage}
                 alt="Behind the scenes"
                 className="w-full h-full object-cover"
               />
@@ -60,12 +62,12 @@ export default function AboutSection() {
 
             <div className="mt-10 flex gap-12">
               <div>
-                <p className="text-3xl font-light text-white">150<span className="text-[#d4a853]">+</span></p>
-                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Projects</p>
+                <p className="text-3xl font-light text-white">2.1K<span className="text-[#d4a853]">+</span></p>
+                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Social Engagements</p>
               </div>
               <div>
-                <p className="text-3xl font-light text-white">50<span className="text-[#d4a853]">+</span></p>
-                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Brands</p>
+                <p className="text-3xl font-light text-white">10<span className="text-[#d4a853]">+</span></p>
+                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Private Shoots</p>
               </div>
             </div>
           </motion.div>
