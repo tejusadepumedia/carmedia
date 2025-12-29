@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import btsimage from "./photos/DSC05840.webp";
+import btsimage from "./photos/lexus/DSC05840.webp";
 
 
 export default function AboutSection() {
@@ -62,8 +62,12 @@ export default function AboutSection() {
 
             <div className="mt-10 flex gap-12">
               <div>
-                <p className="text-3xl font-light text-white">2.1K<span className="text-[#d4a853]">+</span></p>
-                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Social Engagements</p>
+                <p className="text-3xl font-light text-white">2.5K<span className="text-[#d4a853]">+</span></p>
+                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Social Interactions</p>
+              </div>
+              <div>
+                <p className="text-3xl font-light text-white">150K<span className="text-[#d4a853]">+</span></p>
+                <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Engaged Views</p>
               </div>
               <div>
                 <p className="text-3xl font-light text-white">10<span className="text-[#d4a853]">+</span></p>

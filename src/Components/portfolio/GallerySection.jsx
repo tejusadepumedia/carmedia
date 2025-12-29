@@ -1,21 +1,42 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-// Automatically import all PNG and JPG images from the folder
-const images = import.meta.glob("./photos/*.webp", { eager: true });
+// Import ALL images recursively (folders = slideshows)
+const imageModules = import.meta.glob("./photos/**/**/*.webp", {
+  eager: true,
+});
 
 export default function GallerySection() {
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const photoArray = Object.values(images).map((img, index) => ({
-      id: index + 1,          // auto-generated ID
-      src: img.default,       // URL for <img>
-      alt: `Photo ${index + 1}`,
-      span: "col-span-1 row-span-1",
-    }));
+    const grouped = {};
+
+    Object.entries(imageModules).forEach(([path, module]) => {
+      // ./photos/supra/1.webp → "supra"
+      const folder = path.split("/")[2];
+
+      if (!grouped[folder]) {
+        grouped[folder] = [];
+      }
+
+      grouped[folder].push(module.default);
+    });
+
+    const photoArray = Object.entries(grouped).map(
+      ([folderName, images], index) => ({
+        id: index + 1,
+        title: folderName,
+        cover: images[0],  // first image is tile cover
+        slides: images,    // all images = slideshow
+        alt: folderName,
+        span: "col-span-1 row-span-1",
+      })
+    );
+
     setPhotos(photoArray);
   }, []);
 
@@ -34,7 +55,7 @@ export default function GallerySection() {
             Portfolio
           </p>
           <h2 className="text-3xl md:text-5xl font-light text-white">
-            Selected Works
+            Selected Works (select each for full slideshow)
           </h2>
         </motion.div>
 
@@ -48,10 +69,13 @@ export default function GallerySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={`relative overflow-hidden group cursor-pointer ${photo.span}`}
-              onClick={() => setSelectedPhoto(photo)}
+              onClick={() => {
+                setSelectedPhoto(photo);
+                setCurrentIndex(0);
+              }}
             >
               <img
-                src={photo.src}
+                src={photo.cover}
                 alt={photo.alt}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -67,31 +91,63 @@ export default function GallerySection() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {selectedPhoto && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setSelectedPhoto(null)}
-        >
-          <button
+      {/* Lightbox Slideshow */}
+      <AnimatePresence>
+        {selectedPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
             onClick={() => setSelectedPhoto(null)}
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
           >
-            <X className="w-8 h-8" />
-          </button>
-          <motion.img
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            src={selectedPhoto.src}
-            alt={selectedPhoto.alt}
-            className="max-w-full max-h-[90vh] object-contain"
-          />
-        </motion.div>
-      )}
+            {/* Close */}
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Previous */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex((i) =>
+                  i === 0 ? selectedPhoto.slides.length - 1 : i - 1
+                );
+              }}
+              className="absolute left-6 text-white text-4xl"
+            >
+              ‹
+            </button>
+
+            {/* Image */}
+            <motion.img
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3 }}
+              src={selectedPhoto.slides[currentIndex]}
+              alt={selectedPhoto.alt}
+              className="max-w-full max-h-[90vh] object-contain"
+            />
+
+            {/* Next */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex((i) =>
+                  i === selectedPhoto.slides.length - 1 ? 0 : i + 1
+                );
+              }}
+              className="absolute right-6 text-white text-4xl"
+            >
+              ›
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
