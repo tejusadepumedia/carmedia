@@ -28,8 +28,8 @@ function processFolder(folderPath, relativePath = "") {
       );
 
       sharp(fullPath)
-        .resize({ width: 1920 })   // optional: resize max width
-        .webp({ quality: 80 })     // compress to 80%
+        .resize({ width: 2000 })   // optional: resize max width
+        .webp({ quality: 100 })     // compress to 80%
         .toFile(outPath)
         .then(() => console.log(`Processed: ${outPath}`))
         .catch(console.error);
