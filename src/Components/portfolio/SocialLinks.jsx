@@ -1,24 +1,25 @@
 import { motion } from "framer-motion";
-import { Instagram, Youtube, Twitter, Facebook } from "lucide-react";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+
 
 const socials = [
   { 
     name: "Instagram", 
-    icon: Instagram, 
+    icon: FaInstagram, 
     url: "https://instagram.com/tejus.adepu", 
     handle: "@tejus.adepu" 
   },
   { 
     name: "Facebook", 
-    icon: Facebook, 
+    icon: FaFacebook, 
     url: "https://www.facebook.com/tejus.adepu", 
     handle: "@tejus.adepu" 
   },
   { 
-    name: "Twitter", 
-    icon: Twitter, 
-    url: "https://twitter.com", 
-    handle: "@yourhandle" 
+    name: "TikTok", 
+    icon: FaTiktok, 
+    url: "https://www.tiktok.com/@tejus.cars", 
+    handle: "@tejus.cars" 
   }
 ];
 
