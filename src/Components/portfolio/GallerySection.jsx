@@ -1,75 +1,80 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Import all compressed images
-const imageModules = import.meta.glob("/src/photos_compressed/**/**/*.webp", {
+const imageModules = import.meta.glob("../../photos_compressed/**/**/*.webp", {
   eager: true,
 });
+
+const swipeConfidenceThreshold = 100;
+const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
 
 export default function GallerySection() {
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
 
-useEffect(() => {
-  const grouped = {};
+  useEffect(() => {
+    const grouped = {};
 
-  Object.entries(imageModules).forEach(([path, module]) => {
-    // path example: "../../photos_compressed/supra/1.webp"
-    // split and take the folder name
-    const parts = path.split("/");
-    const folder = parts[parts.length - 2]; // second-to-last = folder
+    Object.entries(imageModules).forEach(([path, module]) => {
+      const folder = path.split("/").at(-2);
+      if (!grouped[folder]) grouped[folder] = [];
+      grouped[folder].push(module.default);
+    });
 
-    if (!grouped[folder]) grouped[folder] = [];
-    grouped[folder].push(module.default);
-  });
+    Object.values(grouped).forEach((imgs) => imgs.sort());
 
-  // Sort images in each folder
-  Object.keys(grouped).forEach(folder => {
-    grouped[folder].sort(); 
-  });
-
-  const photoArray = Object.entries(grouped).map(([folderName, images], index) => ({
-    id: index + 1,
-    title: folderName,
-    cover: images[0],   // first image = tile cover
-    slides: images,     // all images in this folder = slideshow
-    alt: folderName,
-    span: "col-span-1 row-span-1",
-  }));
-
-  setPhotos(photoArray);
-}, []);
-
+    setPhotos(
+      Object.entries(grouped).map(([folder, images], i) => ({
+        id: i + 1,
+        title: folder,
+        cover: images[0],
+        slides: images,
+        alt: folder,
+        span: "col-span-1 row-span-1",
+      }))
+    );
+  }, []);
 
   const openGallery = (photo) => {
     setSelectedPhoto(photo);
     setCurrentIndex(0);
+    setPage([0, 0]);
   };
 
-  const closeGallery = () => setSelectedPhoto(null);
-
-  const next = () => {
-    setCurrentIndex((i) => (i + 1) % selectedPhoto.slides.length);
-  };
-
-  const prev = () => {
+  const paginate = (dir) => {
+    setPage(([p]) => [p + dir, dir]);
     setCurrentIndex((i) =>
-      (i - 1 + selectedPhoto.slides.length) % selectedPhoto.slides.length
+      (i + dir + selectedPhoto.slides.length) % selectedPhoto.slides.length
     );
   };
 
+  useEffect(() => {
+    if (!selectedPhoto) return;
+
+    const handleKey = (e) => {
+      if (e.key === "ArrowRight") paginate(1);
+      if (e.key === "ArrowLeft") paginate(-1);
+      if (e.key === "Escape") setSelectedPhoto(null);
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedPhoto]);
+
   return (
-    <section id="gallery" className="bg-[#0a0a0a] py-24 md:py-32 px-4 md:px-8">
+    <section id="gallery" className="bg-[#0a0a0a] py-24 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-20"
         >
           <p className="text-[#d4a853] text-xs uppercase tracking-[0.4em] mb-4">
             Portfolio
@@ -79,85 +84,114 @@ useEffect(() => {
           </h2>
         </motion.div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[250px]">
-          {photos.map((photo, index) => (
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[220px]">
+          {photos.map((photo, i) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative overflow-hidden group cursor-pointer ${photo.span}`}
+              transition={{ delay: i * 0.05 }}
               onClick={() => openGallery(photo)}
+              className="relative cursor-pointer overflow-hidden"
             >
               <img
                 src={photo.cover}
                 alt={photo.alt}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="w-12 h-12 rounded-full border border-white/50 flex items-center justify-center">
-                  <div className="w-2 h-2 bg-[#d4a853] rounded-full" />
-                </div>
-              </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Lightbox Slideshow */}
-      <AnimatePresence>
+      {/* Lightbox */}
+      <AnimatePresence initial={false} custom={direction}>
         {selectedPhoto && (
           <motion.div
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-            onClick={closeGallery}
+            onClick={() => setSelectedPhoto(null)}
           >
-            {/* Close */}
-            <button
-              onClick={(e) => { e.stopPropagation(); closeGallery(); }}
-              className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
-            >
-              <X className="w-8 h-8" />
-            </button>
-
-            {/* Previous */}
+            {/* Close Button */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                prev();
+                setSelectedPhoto(null);
               }}
-              className="absolute left-6 text-white text-4xl"
+              className="absolute top-6 right-6 text-white z-50"
             >
-              ‹
+              <X size={32} />
             </button>
 
-            {/* Image */}
-            <motion.img
-              key={currentIndex}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              src={selectedPhoto.slides[currentIndex]}
-              alt={selectedPhoto.alt}
-              className="max-w-full max-h-[90vh] object-contain"
-            />
-
-            {/* Next */}
+            {/* Left Arrow */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                next();
+                paginate(-1);
               }}
-              className="absolute right-6 text-white text-4xl"
+              className="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-50"
             >
-              ›
+              <ChevronLeft size={48} />
             </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                paginate(1);
+              }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-50"
+            >
+              <ChevronRight size={48} />
+            </button>
+
+            {/* Drag Container */}
+            <motion.div
+              className="relative w-full max-w-5xl flex justify-center"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(e, { offset, velocity }) => {
+                const swipe = swipePower(offset.x, velocity.x);
+                if (swipe < -swipeConfidenceThreshold) paginate(1);
+                else if (swipe > swipeConfidenceThreshold) paginate(-1);
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.img
+                  key={page}
+                  src={selectedPhoto.slides[currentIndex]}
+                  custom={direction}
+                  variants={{
+                    enter: (d) => ({
+                      x: d > 0 ? 300 : -300,
+                      opacity: 0,
+                    }),
+                    center: {
+                      x: 0,
+                      opacity: 1,
+                    },
+                    exit: (d) => ({
+                      x: d > 0 ? -300 : 300,
+                      opacity: 0,
+                    }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  className="max-h-[90vh] object-contain select-none pointer-events-none"
+                />
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
