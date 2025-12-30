@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Instagram, Youtube, Twitter } from "lucide-react";
+import { Instagram, Youtube, Twitter, Facebook } from "lucide-react";
 
 const socials = [
   { 
@@ -9,10 +9,10 @@ const socials = [
     handle: "@tejus.adepu" 
   },
   { 
-    name: "YouTube", 
-    icon: Youtube, 
-    url: "https://youtube.com", 
-    handle: "@yourhandle" 
+    name: "Facebook", 
+    icon: Facebook, 
+    url: "https://www.facebook.com/tejus.adepu", 
+    handle: "@tejus.adepu" 
   },
   { 
     name: "Twitter", 
@@ -71,10 +71,27 @@ export default function SocialLinks() {
         >
           <p className="text-white/30 text-xs uppercase tracking-widest mb-3">For Inquiries</p>
           <a 
-            href="mailto:hello@yoursite.com" 
+            href="mailto:TejAdepu1@outlook.com" 
             className="text-white hover:text-[#d4a853] transition-colors text-lg font-light"
           >
-            hello@yoursite.com
+            TejAdepu1@outlook.com
+          </a>
+        </motion.div>
+
+        {/* Phone */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-16"
+        >
+          <p className="text-white/30 text-xs uppercase tracking-widest mb-3">Text or Call</p>
+          <a 
+            href="sms:571-752-2785" 
+            className="text-white hover:text-[#d4a853] transition-colors text-lg font-light"
+          >
+            571-752-2785
           </a>
         </motion.div>
       </div>
