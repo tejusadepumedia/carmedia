@@ -34,7 +34,7 @@ export default function SocialLinks() {
           transition={{ duration: 0.8 }}
         >
           <p className="text-[#d4a853] text-xs uppercase tracking-[0.4em] mb-4">Connect</p>
-          <h2 className="text-3xl md:text-4xl font-light text-white mb-4">Let's Work Together</h2>
+          <h2 className="text-3xl md:text-4xl font-light text-white mb-4">Social Pages:</h2>
           <p className="text-white/50 text-sm max-w-md mx-auto mb-12">
             Follow along for behind-the-scenes content, new releases, and automotive inspiration.
           </p>
@@ -70,7 +70,7 @@ export default function SocialLinks() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-16"
         >
-          <p className="text-white/30 text-xs uppercase tracking-widest mb-3">For Inquiries</p>
+          <p className="text-white/30 text-xs uppercase tracking-widest mb-3">For Inquiries/Booking a Shoot</p>
           <a 
             href="mailto:TejAdepu1@outlook.com" 
             className="text-white hover:text-[#d4a853] transition-colors text-lg font-light"
@@ -87,10 +87,10 @@ export default function SocialLinks() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-16"
         >
-          <p className="text-white/30 text-xs uppercase tracking-widest mb-3">Text or Call</p>
+          <p className="text-white/30 text-xs uppercase tracking-widest mb-3, md:hidden">Text or Call</p>
           <a 
             href="sms:571-752-2785" 
-            className="text-white hover:text-[#d4a853] transition-colors text-lg font-light"
+            className="text-white hover:text-[#d4a853] transition-colors text-lg font-light, md:hidden"
           >
             571-752-2785
           </a>

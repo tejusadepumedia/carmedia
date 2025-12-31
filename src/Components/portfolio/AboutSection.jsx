@@ -41,14 +41,27 @@ export default function AboutSection() {
             
             <div className="space-y-6 text-white/60 text-sm md:text-base leading-relaxed">
               <p>
-                Every vehicle tells a story—of engineering brilliance, of design philosophy, 
-                of the pure emotion that comes from mechanical perfection. My work captures 
-                these narratives through light, shadow, and perspective.
+                I’ve spent the past year developing my style in automotive photography, 
+                creating images that appeal to both car enthusiasts and everyday viewers. 
+                No matter the build, I focus on capturing the details and character 
+                that make each car stand out.
               </p>
               <p>
-                From vintage classics to modern hypercars, I find the angles that reveal 
-                character, the moments where metal becomes art. Each photograph is a 
-                celebration of automotive culture and the passion that drives it.
+                My love for cars naturally turned into photography as a way to capture and share what makes them special. 
+                As this is a hobby, I offer private shoots for free to fellow enthusiasts looking to experience their cars in a new way.
+              </p>
+              <p>
+                My car detailing business is the way I fund my photography passion,
+                allowing me to invest in quality gear and software to enhance my craft.
+                You can check out my detailing services {" "}
+                <a
+                  href="https://thewash24.my.canva.site/thewash"
+                  target = "_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#d4a853] hover:underline"
+                >
+                  here
+                </a>{""}.
               </p>
             </div>
 
