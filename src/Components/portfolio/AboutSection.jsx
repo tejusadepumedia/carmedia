@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import btsimage from "/src/photos_compressed/lexus/DSC05840.webp";
+import btsimage from "/src/photos_compressed/3isVyomSnow/DSC07598.webp";
 
 
 export default function AboutSection() {
