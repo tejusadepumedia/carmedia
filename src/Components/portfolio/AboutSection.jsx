@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import btsimage from "/src/photos_compressed/3isVyomSnow/DSC07598.webp";
+import btsimage from "/src/photos_compressed/diablo/2.webp";
 
 
 export default function AboutSection() {
@@ -36,7 +36,7 @@ export default function AboutSection() {
             <p className="text-[#d4a853] text-xs uppercase tracking-[0.4em] mb-4">About</p>
             <h2 className="text-3xl md:text-4xl font-light text-white mb-8">
               The Art of <br />
-              <span className="italic font-extralight">Automotive Beauty</span>
+              <span className="italic font-extralight">Cars</span>
             </h2>
             
             <div className="space-y-6 text-white/60 text-sm md:text-base leading-relaxed">
@@ -75,7 +75,7 @@ export default function AboutSection() {
 
             <div className="mt-10 flex gap-12">
               <div>
-                <p className="text-3xl font-light text-white">2.5K<span className="text-[#d4a853]">+</span></p>
+                <p className="text-3xl font-light text-white">4.5K<span className="text-[#d4a853]">+</span></p>
                 <p className="text-xs uppercase tracking-wider text-white/40 mt-1">Social Interactions</p>
               </div>
               <div>

@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroImage from "/src/photos/revuelto/DSC05905.jpg";
+import heroImage from "/src/photos/revueltowash/waterlogo.jpg";
 
 export default function HeroSection() {
   const scrollToGallery = () => {
@@ -42,13 +42,13 @@ export default function HeroSection() {
             transition={{ duration: 1.2, delay: 0.3 }}
             className="text-[#d4a853] text-xs md:text-sm uppercase tracking-[0.5em] mb-6"
           >
-            Automotive Photography
+            Automotive Media
           </motion.p>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tight">
             <span className="block">tejus.adepu</span>
             <span className="block mt-2 font-extralight italic text-white/90">
-              photography
+              media
             </span>
           </h1>
 

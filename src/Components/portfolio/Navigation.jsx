@@ -7,27 +7,26 @@ export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollTo = (id) => {
     setMobileMenuOpen(false);
-    if (id === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (id === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const navItems = [
-    { label: 'Home', id: 'top' },
-    { label: 'Gallery', id: 'gallery' },
-    { label: 'About', id: 'about' },
-    { label: 'Connect', id: 'connect' }
+    { label: "Home", id: "top" },
+    { label: "Photo Gallery", id: "photogallery" },
+    { label: "Video Gallery", id: "videogallery" },
+    { label: "About", id: "about" },
+    { label: "Connect", id: "connect" },
   ];
 
   return (
@@ -37,16 +36,16 @@ export default function Navigation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8 }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          isScrolled ? 'bg-[#0a0a0a]/90 backdrop-blur-md py-4' : 'bg-transparent py-6'
+          isScrolled ? "bg-[#0a0a0a]/90 backdrop-blur-md py-4" : "bg-transparent py-6"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <button 
-            onClick={() => scrollTo('top')}
+          <button
+            onClick={() => scrollTo("top")}
             className="text-white font-light text-xl tracking-wider"
           >
-            LENS<span className="text-[#d4a853]">.</span>
+            Main<span className="text-[#d4a853]">.</span>
           </button>
 
           {/* Desktop Nav */}
