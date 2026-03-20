@@ -55,7 +55,7 @@ export default function AboutSection() {
                 allowing me to invest in quality gear and software to enhance my craft.
                 You can check out my detailing services {" "}
                 <a
-                  href="https://thewash24.my.canva.site/thewash"
+                  href="https://tejusadepumedia.github.io/thewash/"
                   target = "_blank"
                   rel="noopener noreferrer"
                   className="text-[#d4a853] hover:underline"
