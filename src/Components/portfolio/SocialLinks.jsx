@@ -9,6 +9,7 @@ const socials = [
     url: "https://instagram.com/tejus.adepu", 
     handle: "@tejus.adepu" 
   },
+  { name: "Detailing Instagram", icon: FaInstagram, url: "https://instagram.com/thewashdmv", handle: "@thewashdmv" },
   { 
     name: "Facebook", 
     icon: FaFacebook, 
@@ -21,6 +22,7 @@ const socials = [
     url: "https://www.tiktok.com/@tejus.cars", 
     handle: "@tejus.cars" 
   }
+  
 ];
 
 export default function SocialLinks() {
